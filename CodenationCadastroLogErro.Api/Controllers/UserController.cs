@@ -3,10 +3,8 @@ using CodenationCadastroLogErro.Dominio.Moldels;
 using CodenationCadastroLogErro.Dominio.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CodenationCadastroLogErro.Api.Controllers
 {
@@ -40,8 +38,8 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             try
             {
-            _repository.Incluir(user);
 
+            _repository.Incluir(user);
             }
             catch (Exception e)
             {

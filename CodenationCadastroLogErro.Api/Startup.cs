@@ -88,7 +88,6 @@ namespace CodenationCadastroLogErro.Api
              */
             services.AddDbContext<CodenationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CentralDeErros")));
         }
-        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -98,7 +97,6 @@ namespace CodenationCadastroLogErro.Api
             }
             //app.UseHttpsRedirection(); //forçar a usar o https
               app.UseRouting();
-
             /*
              */
               app.UseAuthentication();

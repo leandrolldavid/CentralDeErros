@@ -20,18 +20,26 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [Column("details")]
         [MaxLength(500)]
         [Required]
-        //{erro Debug warning}
         public String Details { get; set; }
+
+        [Column("Evento")]
+        [Required]
+        public int Evento { get; set; }
 
         [Column("level")]
         [MaxLength(20)]
         [Required]
+        //{erro Debug warning}
         public String Level { get; set; }
 
         [Column("origin")]
         [MaxLength(39)]
         [Required]
         public String Origin { get; set; }
+
+
+        [Column("arquivar")]
+        public bool Arquivar { get; set; }
 
         [Column("created_at")]
         [Required]
