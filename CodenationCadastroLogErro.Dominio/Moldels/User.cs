@@ -33,6 +33,9 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [MaxLength(100)]
         public string Role { get; set; }
 
+        [Column("arquivar")]
+        public bool Arquivar { get; set; }
+
         [Column("created_at")]
         [Required]
         public DateTime CreatedAt { get; set; }
