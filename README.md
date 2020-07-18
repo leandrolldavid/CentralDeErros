@@ -27,7 +27,7 @@ Representação visual das classes da aplicação e das tabelas do banco de dado
 
 #### Classe
 
-<img src="https://github.com/leandrolldavid/CentralDeErros/assets/uml.png" alt="Imagem representando as classes da aplicação">
+<img src="https://github.com/leandrolldavid/CentralDeErros/assets/diagramaDeClasse.png" alt="Imagem representando as classes da aplicação">
 
 #### Banco de Dados
 
