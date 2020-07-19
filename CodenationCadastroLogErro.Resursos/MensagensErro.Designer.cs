@@ -68,5 +68,14 @@ namespace CodenationCadastroLogErro.Resursos {
                 return ResourceManager.GetString("EmailObrigatorio", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email o senha inválida .
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
     }
 }

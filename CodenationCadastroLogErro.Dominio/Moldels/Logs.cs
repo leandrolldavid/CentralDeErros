@@ -12,30 +12,30 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("description")]
+        [Column("descricao")]
         [MaxLength(500)]
         [Required]
-        public String Description { get; set; }
+        public String Descricao { get; set; }
 
-        [Column("details")]
-        [MaxLength(500)]
+        [Column("detalhes")]
+        [MaxLength(200)]
         [Required]
-        public String Details { get; set; }
+        public String Detalhes { get; set; }
 
-        [Column("Evento")]
+        [Column("evento")]
         [Required]
         public int Evento { get; set; }
 
         [Column("level")]
-        [MaxLength(20)]
+        [MaxLength(100)]
         [Required]
         //{erro Debug warning}
         public String Level { get; set; }
 
-        [Column("origin")]
-        [MaxLength(39)]
+        [Column("origim")]
+        [MaxLength(100)]
         [Required]
-        public String Origin { get; set; }
+        public String Origim { get; set; }
 
 
         [Column("arquivar")]

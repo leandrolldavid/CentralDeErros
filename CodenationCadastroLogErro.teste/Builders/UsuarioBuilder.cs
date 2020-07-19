@@ -8,7 +8,6 @@ namespace CodenationCadastroLogErro.Teste.Builders
         private string _Username = "João da silva";
         private string _Password = "Silvinha01";
         private string _Email = "Joao@joao.com";
-        private DateTime _CreatedAt = DateTime.Now;
 
         public UsuarioBuilder SemNome(string nome)
         {
@@ -33,7 +32,6 @@ namespace CodenationCadastroLogErro.Teste.Builders
                 Username = _Username,
                 Password = _Password,
                 Email = _Email,
-                CreatedAt =_CreatedAt,
             };
         }
        

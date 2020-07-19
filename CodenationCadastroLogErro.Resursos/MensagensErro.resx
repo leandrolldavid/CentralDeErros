@@ -120,4 +120,7 @@
   <data name="EmailObrigatorio" xml:space="preserve">
     <value>Informe o E-mail</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Email o senha inválida </value>
+  </data>
 </root>

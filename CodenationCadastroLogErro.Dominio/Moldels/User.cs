@@ -33,10 +33,12 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [MaxLength(100)]
         public string Role { get; set; }
 
-        [Column("created_at")]
+        [Column("setorId")]
+        [ForeignKey("Setor")]
         [Required]
-        public DateTime CreatedAt { get; set; }
-       
+        public int SetorId { get; set; }
+        public Setor Setor { get; set; }
+
         public ICollection<Logs> Logs { get; set; }
     }
 }

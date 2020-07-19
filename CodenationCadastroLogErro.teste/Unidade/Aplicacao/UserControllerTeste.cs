@@ -6,7 +6,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using System;
-using System.IO.Compression;
 using Xunit;
 
 namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
@@ -26,7 +25,7 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
             //arrange
             var CriarUsuario = new UsuarioBuilder().ConstruirUser();
             //act
-            var retorno = _controller.Incluir(CriarUsuario);
+            var retorno = _controller.Cadastrar(CriarUsuario);
             //assert
             _repository.Received(1).Incluir(CriarUsuario);
             retorno.Should().BeOfType<OkResult>();
@@ -47,7 +46,7 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
                 });
 
             //act
-            var retorno = _controller.Incluir(CriarUsuario);
+            var retorno = _controller.Cadastrar(CriarUsuario);
             //assert
             retorno.Should().BeOfType<BadRequestObjectResult>();
         }

@@ -1,9 +1,12 @@
 ﻿using CodenationCadastroLogErro.Dominio.Dtos;
 using CodenationCadastroLogErro.Dominio.Moldels;
 using CodenationCadastroLogErro.Dominio.Repository;
+using CodenationCadastroLogErro.Resursos;
+using FluentValidation.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace CodenationCadastroLogErro.Dados.Repository
 {
@@ -16,19 +19,20 @@ namespace CodenationCadastroLogErro.Dados.Repository
             _gerarToken = gerarToken;
         }
 
-        public string Login(UserDto user)
+        public string  Login(UserDto user)
         {
             var entity = _contexto.Users.FirstOrDefault(x => x.Email == user.Email);
+            if (entity is null) return null ;
             if (entity.Password.Equals(user.Password))
             {
                 return _gerarToken.GerarOFToken(entity);
             }
             return null;
+
         }
-        public List<User> SelecionarUltimoRegistro()
+        public void inserirRole(User user)
         {
-            return _contexto.Users.OrderByDescending(x => x.Id)
-                    .Take(1).ToList();
+            _contexto.Users.Update(user);
         }
     }
 }

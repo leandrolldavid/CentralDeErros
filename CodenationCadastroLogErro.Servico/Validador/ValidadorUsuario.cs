@@ -9,9 +9,10 @@ namespace CodenationCadastroLogErro.Servico.Validador
     {
         public ValidadorUsuario()
         {
-            RuleFor(usuario => usuario.Username).NotEmpty();
-            RuleFor(usuario => usuario.Password).MinimumLength(6).Must(x=> ContainUpperLetter(x) && ContainLowerLetter(x) && ContainNumber(x));
-            RuleFor(usuario => usuario.Email).NotEmpty();
+            RuleFor(usuario => usuario.Username).NotEmpty().WithMessage("Nome inválido");
+            RuleFor(usuario => usuario.Password).MinimumLength(6).Must(x=> ContainUpperLetter(x) && ContainLowerLetter(x) && ContainNumber(x))
+                .WithMessage("A senha deve ter no mínimo 6 caracteres, com um letra um numero e uma letra maiuscula ");
+            RuleFor(usuario => usuario.Email).NotEmpty().WithMessage("E-mail inválido");
         }
 
         private bool ContainNumber(string x)

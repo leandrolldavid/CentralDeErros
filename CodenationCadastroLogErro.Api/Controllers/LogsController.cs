@@ -2,11 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using CodenationCadastroLogErro.Dominio.Moldels;
 using CodenationCadastroLogErro.Dominio.Repository;
+using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodenationCadastroLogErro.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class LogsController : ControllerBase
     {
         private readonly ILogsRepository _repository;
@@ -15,6 +19,11 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             _repository = repository;
         }
+        [HttpGet("listar")]
+        public ICollection<Logs> listarErros() 
+        {
+            return _repository.SelicionarTodos();
+        }
 
         // GET: api/teste/5
         [HttpGet("{id}")]
@@ -22,26 +31,50 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             return _repository.SelecionarPorId(id);
         }
-        [HttpPost]
-        //[AllowAnonymous]
-        public IEnumerable<Logs> Post([FromBody] Logs logs)
+        [HttpPost("Cadastro")]
+        public IActionResult Cadastrar([FromBody] Logs logs)
         {
-            _repository.Incluir(logs);
-            return _repository.SelicionarTodos();
+            try
+            {   
+                _repository.Incluir(logs);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+            return Ok();
         }
+
         [HttpPut]
-        // [Route("{id:int}")]
-        public IEnumerable<Logs> Update([FromBody] Logs logs)
+        public IActionResult Alterar([FromBody] Logs logs)
         {
-            _repository.Alterar(logs);
-            return _repository.SelicionarTodos();
+            try
+            {
+                _repository.Alterar(logs);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+            return Ok();
         }
+
         [HttpDelete]
-        //[Route("{id:int}")]
-        public IEnumerable<Logs> Delete(int id)
+        [Route("{id:int}")]
+        public IActionResult Excluir(int id)
         {
-            _repository.Excluir(id);
-            return _repository.SelicionarTodos();
+            try
+            {
+                _repository.Excluir(id);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+            return Ok();
         }
     }
 }

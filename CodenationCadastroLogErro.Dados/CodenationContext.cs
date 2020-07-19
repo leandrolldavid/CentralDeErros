@@ -8,7 +8,9 @@ namespace CodenationCadastroLogErro.Dados
     {
         public DbSet<Logs> Logs { get; set; }
         public DbSet<User> Users { get; set; }
-                
+
+        public DbSet<Setor> Setors { get; set; }
+
         // this constructor is for enable testing with in-memory data
         public CodenationContext(DbContextOptions<CodenationContext> options)
             : base(options)

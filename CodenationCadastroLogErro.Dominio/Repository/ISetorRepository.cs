@@ -2,7 +2,7 @@
 
 namespace CodenationCadastroLogErro.Dominio.Repository
 {
-    public interface ILogsRepository : IRepositorioBase<Logs>
+    public interface ISetorRepository : IRepositorioBase<Setor>
     {
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
+using FluentValidation.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
@@ -33,15 +33,17 @@ namespace CodenationCadastroLogErro.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();// parar o fluxo de referencia ciclicar do Json =>
-            //.AddNewtonsoftJson(Options => Options.SerializerSettings.ReferenceLoopHandling = 
-           //  Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+                                      //.AddNewtonsoftJson(Options => Options.SerializerSettings.ReferenceLoopHandling = 
+                                      //  Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc()
+                 .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
            // services.AddMvc(Options => Options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             //services.AddAutoMapper(typeof(Startup));
             //injeção de dependencia 
             services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILogsRepository, LogsRepository>();
+            services.AddScoped<ISetorRepository, SetorRepository>();
             services.AddScoped<IGerarToken, GerarToken>();
             
 
