@@ -83,8 +83,8 @@ namespace CodenationCadastroLogErro.Api
             });
             services.AddMvcCore().AddAuthorization(opt =>
             {
-                opt.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role,"Admin"));
-                opt.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role,"User"));
+                opt.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
+                opt.AddPolicy("user", policy => policy.RequireClaim(ClaimTypes.Role,"user"));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             /*
              */

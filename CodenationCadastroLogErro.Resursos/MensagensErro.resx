@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Alterar" xml:space="preserve">
+    <value>Alterado com sucesso</value>
+  </data>
   <data name="EmailObrigatorio" xml:space="preserve">
     <value>Informe o E-mail</value>
   </data>
+  <data name="Excluido" xml:space="preserve">
+    <value>Excluido com sucesso</value>
+  </data>
   <data name="Login" xml:space="preserve">
-    <value>Email o senha inválida </value>
+    <value>Email ou senha inválida </value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Cadastrado com sucesso</value>
+  </data>
+  <data name="senha" xml:space="preserve">
+    <value>senha inválida</value>
+  </data>
+  <data name="verificarEmail" xml:space="preserve">
+    <value>E-mail já cadastrado</value>
   </data>
 </root>

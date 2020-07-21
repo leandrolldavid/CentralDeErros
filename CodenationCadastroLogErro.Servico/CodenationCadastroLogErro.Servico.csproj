@@ -11,6 +11,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\CodenationCadastroLogErro.Dominio\CodenationCadastroLogErro.Dominio.csproj" />
+		<ProjectReference Include="..\CodenationCadastroLogErro.Resursos\CodenationCadastroLogErro.Recursos.csproj" />
 	</ItemGroup>
 
 </Project>

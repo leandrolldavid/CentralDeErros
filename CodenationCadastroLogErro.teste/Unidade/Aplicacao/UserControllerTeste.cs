@@ -1,6 +1,6 @@
 ﻿using CodenationCadastroLogErro.Api.Controllers;
 using CodenationCadastroLogErro.Dominio.Repository;
-using CodenationCadastroLogErro.Resursos;
+using CodenationCadastroLogErro.Recursos;
 using CodenationCadastroLogErro.Teste.Builders;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;

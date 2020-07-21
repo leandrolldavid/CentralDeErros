@@ -1,6 +1,5 @@
 ﻿using CodenationCadastroLogErro.Dominio.Moldels;
 using FluentValidation;
-using System;
 using System.Linq;
 
 namespace CodenationCadastroLogErro.Servico.Validador

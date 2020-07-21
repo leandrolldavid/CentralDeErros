@@ -1,7 +1,6 @@
 ﻿using CodenationCadastroLogErro.Dominio.Dtos;
 using CodenationCadastroLogErro.Dominio.Moldels;
 using CodenationCadastroLogErro.Dominio.Repository;
-using CodenationCadastroLogErro.Resursos;
 using CodenationCadastroLogErro.Servico.Validador;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,17 +23,46 @@ namespace CodenationCadastroLogErro.Api.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public string Login([FromBody]UserDto login)
+        public IActionResult Login([FromBody]UserDto login)
         {
-              var validarResultado =  _repository.Login(login);
-            if (validarResultado is null) return null;
-            return validarResultado;
+            try
+            {
+                return Ok(_repository.Login(login));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("{id}")]
+        [HttpGet]
         [Authorize]
-        public User SelecionarPorId(int id)
+        [Route("{id:int}")]
+        public IActionResult SelecionarPorId(int id)
         {
-            return _repository.SelecionarPorId(id);
+            try
+            {
+                return Ok(_repository.SelecionarPorId(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("listar")]
+        public IActionResult listar()
+        {
+            try
+            {
+                return Ok( _repository.SelicionarTodos());
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+            
         }
 
         [HttpPost("Cadastrar")]
@@ -43,16 +71,13 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             try
             {
-                var validarResultado = _validador.Validate(user);
-                if (!validarResultado.IsValid.Equals(true)) return BadRequest(validarResultado.Errors);
-                     user.Role = "user";
-                   _repository.Incluir(user);
+                return Ok(_repository.Incluir(user));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return BadRequest(e.Message);
+                return BadRequest(ex.Message);
             }
-            return Ok();
+
         }
         [HttpPut]
         [Authorize]
@@ -61,8 +86,6 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             try
             {
-                var validarResultado = _validador.Validate(user);
-                if (!validarResultado.IsValid.Equals(true)) return BadRequest(validarResultado.Errors);
                 _repository.Alterar(user);
             }
             catch (Exception e)
@@ -90,20 +113,19 @@ namespace CodenationCadastroLogErro.Api.Controllers
         }
 
         [HttpPut]
-        [Authorize("Admin")]
+        [Authorize("admin")]
         [Route("inserir")]
-        public IActionResult InserirRole([FromBody] User user)
+        public IActionResult InserirRole([FromBody] UserRoleDto user)
         {
             try
             {
-                _repository.inserirRole(user);
+                return Ok( _repository.InserirRole(user));
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
-            return Ok();
+            
         }
     }
 }

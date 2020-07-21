@@ -9,7 +9,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
 
     public class LogsController : ControllerBase
     {
@@ -20,30 +20,38 @@ namespace CodenationCadastroLogErro.Api.Controllers
             _repository = repository;
         }
         [HttpGet("listar")]
-        public ICollection<Logs> listarErros() 
+       /*
+        public Logs ListarLogs() 
         {
             return _repository.SelicionarTodos();
         }
+        */
 
         // GET: api/teste/5
         [HttpGet("{id}")]
-        public Logs GetLogs(int id)
+        public IActionResult GetLogs(int id)
         {
-            return _repository.SelecionarPorId(id);
+            try
+            {
+                return Ok(_repository.SelecionarPorId(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         [HttpPost("Cadastro")]
         public IActionResult Cadastrar([FromBody] Logs logs)
         {
             try
             {   
-                _repository.Incluir(logs);
+               // _repository.Incluir(logs);
+                return Ok();
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
-            return Ok();
         }
 
         [HttpPut]
@@ -52,13 +60,12 @@ namespace CodenationCadastroLogErro.Api.Controllers
             try
             {
                 _repository.Alterar(logs);
+                return Ok();    
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
-            return Ok();
         }
 
         [HttpDelete]
@@ -68,13 +75,12 @@ namespace CodenationCadastroLogErro.Api.Controllers
             try
             {
                 _repository.Excluir(id);
+                return Ok();
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
-            return Ok();
         }
     }
 }

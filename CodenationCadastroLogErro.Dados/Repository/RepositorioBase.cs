@@ -1,6 +1,8 @@
 ﻿using CodenationCadastroLogErro.Dominio.Repository;
+using CodenationCadastroLogErro.Recursos;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CodenationCadastroLogErro.Dados.Repository
 {
@@ -12,27 +14,22 @@ namespace CodenationCadastroLogErro.Dados.Repository
         {
             _contexto = contexto;
         }
-        
-        public void Incluir(T entity)
-        {
-            _contexto.Set<T>().Add(entity);
-            _contexto.SaveChanges();
-        }
-         
-        public void Alterar(T entity)
+        public string Alterar(T entity)
         {
             _contexto.Set<T>().Update(entity);
             _contexto.SaveChanges();
+            return MensagensErro.Alterar;
         }
         public T SelecionarPorId(int id)
         {
             return _contexto.Set<T>().FirstOrDefault(x => x.Id == id);
         }
-        public void Excluir(int id)
+        public string Excluir(int id)
         {
             var entity = SelecionarPorId(id);
             _contexto.Set<T>().Remove(entity);
             _contexto.SaveChanges();
+            return MensagensErro.Excluido;
 
         }
         public List<T> SelicionarTodos()
@@ -43,10 +40,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
         {
             _contexto.Dispose();
         }
-
-        public bool EmailEstaEmUso(string email)
-        {
-            return _contexto.Users.Any(x => x.Email == email);
-        }
+        
     }
+
 }

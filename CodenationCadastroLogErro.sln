@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.Servico", "CodenationCadastroLogErro.Servico\CodenationCadastroLogErro.Servico.csproj", "{B377E58C-FDB6-4384-982E-03F95E408D34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.Resursos", "CodenationCadastroLogErro.Resursos\CodenationCadastroLogErro.Resursos.csproj", "{CC4531E5-0B0C-462F-8FA1-AF14F7F34FC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.Recursos", "CodenationCadastroLogErro.Resursos\CodenationCadastroLogErro.Recursos.csproj", "{CC4531E5-0B0C-462F-8FA1-AF14F7F34FC5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.teste", "CodenationCadastroLogErro.teste\CodenationCadastroLogErro.teste.csproj", "{AA6F4C68-62F8-425F-A108-57D7EE9F64E5}"
 EndProject

@@ -20,7 +20,7 @@
     <ProjectReference Include="..\CodenationCadastroLogErro.Api\CodenationCadastroLogErro.Api.csproj" />
     <ProjectReference Include="..\CodenationCadastroLogErro.Dados\CodenationCadastroLogErro.Dados.csproj" />
     <ProjectReference Include="..\CodenationCadastroLogErro.Dominio\CodenationCadastroLogErro.Dominio.csproj" />
-    <ProjectReference Include="..\CodenationCadastroLogErro.Resursos\CodenationCadastroLogErro.Resursos.csproj" />
+    <ProjectReference Include="..\CodenationCadastroLogErro.Resursos\CodenationCadastroLogErro.Recursos.csproj" />
     <ProjectReference Include="..\CodenationCadastroLogErro.Servico\CodenationCadastroLogErro.Servico.csproj" />
   </ItemGroup>
 

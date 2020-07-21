@@ -20,18 +20,19 @@ namespace CodenationCadastroLogErro.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        
+        /*
         public Setor SelecionarPorId(int id)
         {
             return _repository.SelecionarPorId(id);
         }
+         */
        
         [HttpPost("Cadastrar")]
         public IActionResult Cadastrar([FromBody] Setor setor)
         {
             try
             {
-                _repository.Incluir(setor);
+             //   _repository.Incluir(setor);
             }
             catch (Exception e)
             {

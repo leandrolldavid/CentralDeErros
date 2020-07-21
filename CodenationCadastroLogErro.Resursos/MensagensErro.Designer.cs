@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CodenationCadastroLogErro.Resursos {
+namespace CodenationCadastroLogErro.Recursos {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CodenationCadastroLogErro.Resursos {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CodenationCadastroLogErro.Resursos.MensagensErro", typeof(MensagensErro).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CodenationCadastroLogErro.Recursos.MensagensErro", typeof(MensagensErro).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,6 +61,15 @@ namespace CodenationCadastroLogErro.Resursos {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Alterado com sucesso.
+        /// </summary>
+        public static string Alterar {
+            get {
+                return ResourceManager.GetString("Alterar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Informe o E-mail.
         /// </summary>
         public static string EmailObrigatorio {
@@ -70,11 +79,47 @@ namespace CodenationCadastroLogErro.Resursos {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Email o senha inválida .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Excluido com sucesso.
+        /// </summary>
+        public static string Excluido {
+            get {
+                return ResourceManager.GetString("Excluido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email ou senha inválida .
         /// </summary>
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cadastrado com sucesso.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a senha inválida.
+        /// </summary>
+        public static string senha {
+            get {
+                return ResourceManager.GetString("senha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail já cadastrado.
+        /// </summary>
+        public static string verificarEmail {
+            get {
+                return ResourceManager.GetString("verificarEmail", resourceCulture);
             }
         }
     }
