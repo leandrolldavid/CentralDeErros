@@ -1,7 +1,6 @@
 ﻿using CodenationCadastroLogErro.Dominio.Dtos;
 using CodenationCadastroLogErro.Dominio.Moldels;
 using CodenationCadastroLogErro.Dominio.Repository;
-using CodenationCadastroLogErro.Servico.Validador;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,12 +12,10 @@ namespace CodenationCadastroLogErro.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
-        private readonly ValidadorUsuario _validador;
 
         public UserController(IUserRepository repository)
         {
             _repository = repository;
-            _validador = new ValidadorUsuario();
         }
 
         [HttpPost("login")]
@@ -34,6 +31,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet]
         [Authorize]
         [Route("{id:int}")]
@@ -51,7 +49,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
         [HttpGet]
         [Authorize("admin")]
         [Route("listar")]
-        public IActionResult listar()
+        public IActionResult Listar()
         {
             try
             {
@@ -62,7 +60,6 @@ namespace CodenationCadastroLogErro.Api.Controllers
 
                 return BadRequest(e.Message);
             }
-            
         }
 
         [HttpPost("Cadastrar")]
@@ -77,8 +74,8 @@ namespace CodenationCadastroLogErro.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
+
         [HttpPut]
         [Authorize]
         [Route("alterar")]
@@ -86,30 +83,27 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             try
             {
-                _repository.Alterar(user);
+                return Ok( _repository.Alterar(user));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            return Ok();
         }
+
         [HttpDelete]
-        [Authorize("Admin")]
+        [Authorize("admin")]
         [Route("{id:int}")]
         public IActionResult Excluir(int id)
         {
-
             try
             {
-                _repository.Excluir(id);
+                return Ok( _repository.Excluir(id));
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
-            return Ok();
         }
 
         [HttpPut]
@@ -125,7 +119,6 @@ namespace CodenationCadastroLogErro.Api.Controllers
             {
                 return BadRequest(e.Message);
             }
-            
         }
     }
 }

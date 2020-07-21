@@ -2,7 +2,6 @@
 using CodenationCadastroLogErro.Recursos;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CodenationCadastroLogErro.Dados.Repository
 {
@@ -14,6 +13,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
         {
             _contexto = contexto;
         }
+     
         public string Alterar(T entity)
         {
             _contexto.Set<T>().Update(entity);

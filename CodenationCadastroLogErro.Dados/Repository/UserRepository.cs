@@ -13,6 +13,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
         private readonly IGerarToken _gerarToken;
         private readonly ValidadorUsuario _validador;
 
+
         public UserRepository(CodenationContext contexto,IGerarToken gerarToken)
             : base(contexto)
         {
@@ -28,7 +29,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
             user.Role = "user";
             _contexto.Users.Add(user);
             _contexto.SaveChanges();
-            return "Usuario " + user.Username +", "+ MensagensErro.Ok; 
+            return string.Format("Usuario '{0} {1}'", user.Username, MensagensErro.Ok); 
         }
         public string Login(UserDto user)
         {
