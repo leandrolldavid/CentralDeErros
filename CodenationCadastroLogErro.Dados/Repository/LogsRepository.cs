@@ -2,27 +2,16 @@
 using CodenationCadastroLogErro.Dominio.Moldels;
 using CodenationCadastroLogErro.Dominio.Repository;
 using CodenationCadastroLogErro.Recursos;
-using CodenationCadastroLogErro.Servico.Validador;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CodenationCadastroLogErro.Dados.Repository
 {
     public class LogsRepository : RepositorioBase<Logs>, ILogsRepository
     {
-        private readonly ValidadorLogs _validador;
         public LogsRepository(CodenationContext contexto)
             : base(contexto)
         {
-           _validador = new ValidadorLogs();
-        }
-        public string Incluir(Logs log)
-        {
-            var validarResultado = _validador.Validate(log);
-            if (!validarResultado.IsValid.Equals(true)) throw new Exception(validarResultado.ToString());
-            _contexto.Logs.Add(log);
-            _contexto.SaveChanges();
-            return string.Format("O '{0} {1}'", log.Level, MensagensErro.Ok);
         }
         public string Arquivar(LogDto user)
         {
@@ -32,5 +21,97 @@ namespace CodenationCadastroLogErro.Dados.Repository
             _contexto.SaveChanges();
             return MensagensErro.Alterar;
         }
+        public List<LogQuery> SelecionarLog(int id)
+        {
+            var data = (from log in _contexto.Logs
+                        join user in _contexto.Users on log.UserId equals user.Id
+                        join setor in _contexto.Setors on user.SetorId equals setor.Id
+                        join tipolog in _contexto.TipoLogs on log.TipoLogId equals tipolog.Id
+                        let count = _contexto.Logs.Where(x => x.Origim.Equals(log.Origim)).Count()
+                        where log.Id == id
+                        select new LogQuery
+                        {
+                            Titulo = log.Titulo,
+                            Evento = count,
+                            Level = tipolog.Level,
+                            Origim = log.Origim,
+                            CreatedAt = log.CreatedAt,
+                            Usuario = user.Username,
+                            Setor = setor.Nome,
+                        });
+            return data.ToList();
+        }
+        public List<LogQuery> Listar()
+        {
+            var data = (from log in _contexto.Logs
+                        join tipolog in _contexto.TipoLogs on log.TipoLogId equals tipolog.Id
+                        let count = _contexto.Logs.Where(x => x.Origim.Equals(log.Origim)).Count()
+                        where log.Arquivar == false
+                        select new LogQuery
+                        {// lista ok
+                            Id = log.Id,
+                            Origim = log.Origim,
+                            CreatedAt = log.CreatedAt,
+                            Level = tipolog.Level,
+                            Evento = count,
+                            Descricao = log.Descricao,
+                        });
+            return data.ToList();
+        }
+        public List<LogQuery> OrdernaPorLevel()
+        {
+            var data = (from log in _contexto.Logs
+                        join tipolog in _contexto.TipoLogs on log.TipoLogId equals tipolog.Id
+                        let count = _contexto.Logs.Where(x => x.Origim.Equals(log.Origim)).Count()
+                        where log.Arquivar == false
+                        select new LogQuery
+                        {// lista ok
+                            Id = log.Id,
+                            Origim = log.Origim,
+                            CreatedAt = log.CreatedAt,
+                            Level = tipolog.Level,
+                            Evento = count,//log.Evento,
+                            Descricao = log.Descricao,
+                        });
+            return data.OrderBy(x => x.Level).ToList();
+        }
+        public List<LogQuery> OrdernaPorFrequencia()
+        {
+            var data = (from log in _contexto.Logs
+                        join tipolog in _contexto.TipoLogs on log.TipoLogId equals tipolog.Id
+                        let count = _contexto.Logs.Where(x => x.Origim.Equals(log.Origim)).Count()
+                        where log.Arquivar == false
+                        select new LogQuery
+                        {// lista ok
+                            Id = log.Id,
+                            Origim = log.Origim,
+                            CreatedAt = log.CreatedAt,
+                            Level = tipolog.Level,
+                            Evento = count,//log.Evento,
+                            Descricao = log.Descricao,
+                        });
+            return data.OrderBy(x => x.Origim).ToList();
+        }
+        public List<LogQuery> SelecionarPorSetor(int id)
+        {
+            var data = (from log in _contexto.Logs
+                        join use in _contexto.Users on log.UserId equals use.Id
+                        join setor in _contexto.Setors on use.SetorId equals setor.Id
+                        join tipolog in _contexto.TipoLogs on log.TipoLogId equals tipolog.Id
+                        let count = _contexto.Logs.Where(x => x.Origim.Equals(log.Origim)).Count()
+                        where log.Arquivar == false && setor.Id == id
+                        select new LogQuery
+                        {
+                            Id = log.Id,
+                            Origim = log.Origim,
+                            CreatedAt = log.CreatedAt,
+                            Level = tipolog.Level,
+                            Evento = count,
+                            Descricao = log.Descricao,
+                        });
+            return data.ToList();
+        }
     }
 }
+ 
+    

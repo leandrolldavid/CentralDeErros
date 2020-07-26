@@ -8,19 +8,25 @@ namespace CodenationCadastroLogErro.Dados.Repository
     public class RepositorioBase<T> : IRepositorioBase<T> where T : class, IEntity
     {
         protected readonly CodenationContext _contexto;
-
         public RepositorioBase(CodenationContext contexto)
         {
             _contexto = contexto;
+           
         }
-     
+
+        public string Incluir(T entity)
+        {
+            _contexto.Set<T>().Add(entity);
+            _contexto.SaveChanges();
+            return MensagensErro.Ok;
+        }
         public string Alterar(T entity)
         {
             _contexto.Set<T>().Update(entity);
             _contexto.SaveChanges();
             return MensagensErro.Alterar;
         }
-        public T SelecionarPorId(int id)
+        public virtual T SelecionarPorId(int id)
         {
             return _contexto.Set<T>().FirstOrDefault(x => x.Id == id);
         }
@@ -40,7 +46,6 @@ namespace CodenationCadastroLogErro.Dados.Repository
         {
             _contexto.Dispose();
         }
-        
     }
 
 }

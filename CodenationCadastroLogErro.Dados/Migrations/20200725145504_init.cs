@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodenationCadastroLogErro.Dados.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,6 +18,19 @@ namespace CodenationCadastroLogErro.Dados.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Setor", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TipoLog",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    level = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoLog", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,10 +62,11 @@ namespace CodenationCadastroLogErro.Dados.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    titulo = table.Column<string>(maxLength: 500, nullable: false),
                     descricao = table.Column<string>(maxLength: 500, nullable: false),
                     detalhes = table.Column<string>(maxLength: 200, nullable: false),
                     evento = table.Column<int>(nullable: false),
-                    level = table.Column<string>(maxLength: 100, nullable: false),
+                    tipoLogId = table.Column<int>(nullable: false),
                     origim = table.Column<string>(maxLength: 100, nullable: false),
                     arquivar = table.Column<bool>(nullable: false),
                     created_at = table.Column<DateTime>(nullable: false),
@@ -62,12 +76,23 @@ namespace CodenationCadastroLogErro.Dados.Migrations
                 {
                     table.PrimaryKey("PK_Logs", x => x.id);
                     table.ForeignKey(
+                        name: "FK_Logs_TipoLog_tipoLogId",
+                        column: x => x.tipoLogId,
+                        principalTable: "TipoLog",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Logs_Usuario_userId",
                         column: x => x.userId,
                         principalTable: "Usuario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Logs_tipoLogId",
+                table: "Logs",
+                column: "tipoLogId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Logs_userId",
@@ -84,6 +109,9 @@ namespace CodenationCadastroLogErro.Dados.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "TipoLog");
 
             migrationBuilder.DropTable(
                 name: "Usuario");

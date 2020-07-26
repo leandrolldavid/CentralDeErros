@@ -10,7 +10,6 @@ namespace CodenationCadastroLogErro.Dados.Map
         public void Configure(EntityTypeBuilder<Logs> builder)
         {
             builder.HasKey(x => x.Id);
-            // builder.HasKey(x => new { x.Id });
         }
     }
 }

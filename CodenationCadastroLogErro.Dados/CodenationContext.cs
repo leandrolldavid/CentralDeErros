@@ -8,13 +8,14 @@ namespace CodenationCadastroLogErro.Dados
     {
         public DbSet<Logs> Logs { get; set; }
         public DbSet<User> Users { get; set; }
-
         public DbSet<Setor> Setors { get; set; }
+        public DbSet<TipoLog> TipoLogs { get; set; }
 
         // this constructor is for enable testing with in-memory data
         public CodenationContext(DbContextOptions<CodenationContext> options)
             : base(options)
-        {             
+        {
+          
         }
 
         public CodenationContext()
@@ -25,6 +26,7 @@ namespace CodenationCadastroLogErro.Dados
         {            
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new LogsMap());
+            modelBuilder.ApplyConfiguration(new TipoLogMap());
             base.OnModelCreating(modelBuilder);
         }
     }

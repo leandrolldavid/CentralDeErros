@@ -7,6 +7,6 @@ namespace CodenationCadastroLogErro.Dominio.Repository
 {
     public interface IGerarToken
     {
-        string GerarOFToken(User usuario);
+        string GerarOfToken(User usuario);
     }
 }

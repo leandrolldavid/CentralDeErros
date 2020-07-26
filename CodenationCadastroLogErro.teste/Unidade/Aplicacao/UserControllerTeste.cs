@@ -1,9 +1,9 @@
-﻿using CodenationCadastroLogErro.Api.Controllers;
-using CodenationCadastroLogErro.Dominio.Repository;
-using CodenationCadastroLogErro.Recursos;
+﻿using CodenationCadastroLogErro.Dominio.Repository;
+using CodenationCadastroLogErro.Api.Controllers;
 using CodenationCadastroLogErro.Teste.Builders;
-using FluentAssertions;
+using CodenationCadastroLogErro.Recursos;
 using Microsoft.AspNetCore.Mvc;
+using FluentAssertions;
 using NSubstitute;
 using System;
 using Xunit;
@@ -27,7 +27,7 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
             //act
             var retorno = _controller.Cadastrar(CriarUsuario);
             //assert
-            _repository.Received(1).Incluir(CriarUsuario);
+            _repository.Received(1).Cadastrar(CriarUsuario);
             retorno.Should().BeOfType<OkResult>();
         }
 
@@ -39,12 +39,11 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
                 .SemEmail(string.Empty)
                 .ConstruirUser();
 
-            _repository.When(x => x.Incluir(CriarUsuario))
+            _repository.When(x => x.Cadastrar(CriarUsuario))
                 .Do(x =>
                 {
                     throw new Exception(MensagensErro.EmailObrigatorio);
                 });
-
             //act
             var retorno = _controller.Cadastrar(CriarUsuario);
             //assert

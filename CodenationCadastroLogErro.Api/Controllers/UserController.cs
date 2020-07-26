@@ -4,6 +4,7 @@ using CodenationCadastroLogErro.Dominio.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace CodenationCadastroLogErro.Api.Controllers
 {
@@ -12,12 +13,10 @@ namespace CodenationCadastroLogErro.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _repository;
-
         public UserController(IUserRepository repository)
         {
             _repository = repository;
         }
-
         [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult Login([FromBody]UserDto login)
@@ -31,11 +30,10 @@ namespace CodenationCadastroLogErro.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpGet]
         [Authorize]
-        [Route("{id:int}")]
-        public IActionResult SelecionarPorId(int id)
+        [Route("selecionar/{id:int}")]
+        public ActionResult<IEnumerable<User>> SelecionarPorId(int id)
         {
             try
             {
@@ -46,9 +44,8 @@ namespace CodenationCadastroLogErro.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet]
+        [HttpGet("listar")]
         [Authorize("admin")]
-        [Route("listar")]
         public IActionResult Listar()
         {
             try
@@ -61,24 +58,21 @@ namespace CodenationCadastroLogErro.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        [HttpPost("Cadastrar")]
+        [HttpPost("cadastrar")]
         [AllowAnonymous]
         public IActionResult Cadastrar([FromBody] User user)
         {
             try
             {
-                return Ok(_repository.Incluir(user));
+                return Ok(_repository.Cadastrar(user));
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPut]
         [Authorize]
-        [Route("alterar")]
         public IActionResult Alterar([FromBody] User user)
         {
             try
@@ -90,7 +84,6 @@ namespace CodenationCadastroLogErro.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
-
         [HttpDelete]
         [Authorize("admin")]
         [Route("{id:int}")]
@@ -105,10 +98,8 @@ namespace CodenationCadastroLogErro.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        [HttpPut]
+        [HttpPut("permissao")]
         [Authorize("admin")]
-        [Route("inserir")]
         public IActionResult InserirRole([FromBody] UserRoleDto user)
         {
             try

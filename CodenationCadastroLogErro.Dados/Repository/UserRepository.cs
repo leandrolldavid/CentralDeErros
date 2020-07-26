@@ -1,10 +1,10 @@
 ﻿using CodenationCadastroLogErro.Dominio.Dtos;
 using CodenationCadastroLogErro.Dominio.Moldels;
+using CodenationCadastroLogErro.Servico.Validador;
 using CodenationCadastroLogErro.Dominio.Repository;
 using CodenationCadastroLogErro.Recursos;
-using CodenationCadastroLogErro.Servico.Validador;
-using System;
 using System.Linq;
+using System;
 
 namespace CodenationCadastroLogErro.Dados.Repository
 {
@@ -13,7 +13,6 @@ namespace CodenationCadastroLogErro.Dados.Repository
         private readonly IGerarToken _gerarToken;
         private readonly ValidadorUsuario _validador;
 
-
         public UserRepository(CodenationContext contexto,IGerarToken gerarToken)
             : base(contexto)
         {
@@ -21,7 +20,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
             _validador = new ValidadorUsuario();
         }
 
-        public string Incluir(User user)
+        public string Cadastrar(User user)
         {
             var validarResultado = _validador.Validate(user);
             if (!validarResultado.IsValid.Equals(true)) throw new Exception(validarResultado.ToString());
@@ -39,7 +38,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
             {
                 throw new Exception(MensagensErro.Login);
             }
-                return _gerarToken.GerarOFToken(entity);
+                return _gerarToken.GerarOfToken(entity);
         }
         public string InserirRole(UserRoleDto user)
         {
@@ -49,9 +48,11 @@ namespace CodenationCadastroLogErro.Dados.Repository
             _contexto.SaveChanges();
             return MensagensErro.Alterar;
         }
+
         public bool EmailEstaEmUso(string email)
         {
             return _contexto.Users.Any(x => x.Email == email);
         }
+
     }
 }

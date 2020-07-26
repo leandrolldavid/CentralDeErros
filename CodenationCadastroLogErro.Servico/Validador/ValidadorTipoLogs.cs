@@ -4,16 +4,16 @@ using FluentValidation;
 
 namespace CodenationCadastroLogErro.Servico.Validador
 {
-    public class ValidadorLogs : AbstractValidator<Logs>
+    public class ValidadorTipoLogs : AbstractValidator<TipoLog>
     {
-        public ValidadorLogs()
+        public ValidadorTipoLogs()
         {
             RuleFor(log => log.Level).NotEmpty().Must(x => ConstaPalavara(x))
-                .WithMessage("O level deve ser do tipo 'erro', 'debug' ou 'warning' ");
+                .WithMessage("O campo level deve ser do tipo 'Error', 'Debug' ou 'Warning' ");
         }
         private bool ConstaPalavara(string x)
         {
-            return x.Equals("erro") || x.Equals("debug") || x.Equals("warning");
+            return x.Equals("Error") || x.Equals("Debug") || x.Equals("Warning");
         }
 
     }

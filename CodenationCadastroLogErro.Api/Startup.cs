@@ -17,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 
-
 namespace CodenationCadastroLogErro.Api
 {
     public class Startup
@@ -28,7 +27,6 @@ namespace CodenationCadastroLogErro.Api
         }
 
         public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,17 +34,21 @@ namespace CodenationCadastroLogErro.Api
                                       //.AddNewtonsoftJson(Options => Options.SerializerSettings.ReferenceLoopHandling = 
                                       //  Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc()
-                 .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
-           // services.AddMvc(Options => Options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddMvc().AddJsonOptions(opcoes => 
+            { // ignore valores nulos
+                opcoes.JsonSerializerOptions.IgnoreNullValues = true;
+            });
+            // services.AddMvc(Options => Options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             //services.AddAutoMapper(typeof(Startup));
             //injeção de dependencia 
             services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ILogsRepository, LogsRepository>();
             services.AddScoped<ISetorRepository, SetorRepository>();
+            services.AddScoped<ITipoLogRepository, TipoLogRepository>();
             services.AddScoped<IGerarToken, GerarToken>();
-            
-
+        
             var section = Configuration.GetSection("token");
             services.Configure<Token>(section);
 
@@ -70,7 +72,6 @@ namespace CodenationCadastroLogErro.Api
                         ValidAudience = token.ValidoEm,
                         ValidIssuer = token.Emissor,
                         ValidateLifetime = true,  //verificar vadidade do token
-                         
                     };
                 });
             services.AddAuthorization(auth =>
@@ -78,16 +79,13 @@ namespace CodenationCadastroLogErro.Api
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
-              //  auth.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
-               // auth.AddPolicy("user", policy => policy.RequireClaim(ClaimTypes.Role, "user"));
             });
             services.AddMvcCore().AddAuthorization(opt =>
             {
                 opt.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
                 opt.AddPolicy("user", policy => policy.RequireClaim(ClaimTypes.Role,"user"));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            /*
-             */
+            
             services.AddDbContext<CodenationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CentralDeErros")));
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,8 +97,7 @@ namespace CodenationCadastroLogErro.Api
             }
             //app.UseHttpsRedirection(); //forçar a usar o https
               app.UseRouting();
-            /*
-             */
+            
               app.UseAuthentication();
               app.UseAuthorization();
               app.UseEndpoints(endpoints =>

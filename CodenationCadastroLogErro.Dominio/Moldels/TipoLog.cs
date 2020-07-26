@@ -1,22 +1,24 @@
 ﻿using CodenationCadastroLogErro.Dominio.Repository;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System;
 
 namespace CodenationCadastroLogErro.Dominio.Moldels
 {
-    [Table("Setor")]
-    public class Setor : IEntity
+    [Table("TipoLog")]
+    public class TipoLog : IEntity
     {
         [Key]
         [Column("id")]
         public int Id { get; set; }
 
-        [Column("nome")]
-        [MaxLength(200)]
+        [Column("level")]
+        [MaxLength(100)]
         [Required]
-        public String Nome { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        //{error Debug warning}
+        public String Level { get; set; }
+
+        public virtual ICollection<Logs> Logs { get; set; }
     }
 }

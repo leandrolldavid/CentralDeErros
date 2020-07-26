@@ -12,8 +12,7 @@ namespace CodenationCadastroLogErro.Dados.Map
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
-           // builder.HasKey(x => new { x.Id });
-            builder.HasMany<Logs>(log => log.Logs)
+            builder.HasMany<Logs>(log => log.Log)
                 .WithOne(use => use.User)
                 .HasForeignKey(use => use.UserId);           
         }

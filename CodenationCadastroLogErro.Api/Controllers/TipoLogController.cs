@@ -10,19 +10,19 @@ namespace CodenationCadastroLogErro.Api.Controllers
     [Route("api/[Controller]")]
     [ApiController]
     [Authorize("Admin")]
-    public class SetorController : ControllerBase
+    public class TipoLogController : ControllerBase
     {
-        private readonly ISetorRepository _repository;
-        public SetorController(ISetorRepository repository)
+         private readonly ITipoLogRepository _repository;
+        public TipoLogController(ITipoLogRepository repository)
         {
             _repository = repository;
-        }      
+        }
         [HttpPost("cadastrar")]
-        public IActionResult Cadastrar([FromBody] Setor setor)
+        public IActionResult Cadastrar([FromBody] TipoLog tipoLog)
         {
             try
             {
-                return Ok(_repository.Incluir(setor)); 
+                return Ok( _repository.Cadastrar(tipoLog));
             }
             catch (Exception e)
             {
@@ -32,11 +32,11 @@ namespace CodenationCadastroLogErro.Api.Controllers
         }
         [HttpGet]
         [Route("selecionar/{id:int}")]
-        public ActionResult<IEnumerable<Setor>> SelecionarPorId(int id)
-        {//ok
+        public ActionResult<IEnumerable<TipoLog>> SelecionarPorId(int id)
+        {
             try
             {
-                return Ok( _repository.SelecionarPorId(id));
+            return Ok(_repository.SelecionarPorId(id));
             }
             catch (Exception e)
             {
@@ -44,7 +44,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
             }
         }
         [HttpGet("listar")]
-        public ActionResult<IEnumerable<Setor>> Listar()
+        public IActionResult Listar()
         {
             try
             {
@@ -56,17 +56,16 @@ namespace CodenationCadastroLogErro.Api.Controllers
             }
         }
         [HttpPut]
-        public IActionResult Alterar([FromBody] Setor setor)
+        public IActionResult Alterar([FromBody] TipoLog tipoLog)
         {
             try
             {
-                return Ok( _repository.Alterar(setor)); 
+                return Ok(_repository.Alterar(tipoLog));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-           
         }
         [HttpDelete]
         [Route("{id:int}")]
@@ -74,7 +73,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             try
             {
-                return Ok( _repository.Excluir(id)); 
+                return Ok(_repository.Excluir(id));
             }
             catch (Exception e)
             {

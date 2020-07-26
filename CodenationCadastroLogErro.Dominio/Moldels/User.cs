@@ -38,7 +38,6 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [Required]
         public int SetorId { get; set; }
         public Setor Setor { get; set; }
-
-        public ICollection<Logs> Logs { get; set; }
+        public virtual ICollection<Logs> Log { get; set; }
     }
 }

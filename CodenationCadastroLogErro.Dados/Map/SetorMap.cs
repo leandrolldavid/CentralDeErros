@@ -12,10 +12,10 @@ namespace CodenationCadastroLogErro.Dados.Map
         public void Configure(EntityTypeBuilder<Setor> builder)
         {
             builder.HasKey(x => x.Id);
-            // builder.HasKey(x => new { x.Id });
-            builder.HasMany<User>(setor => setor.Users)
-                .WithOne(use => use.Setor)
-                .HasForeignKey(use => use.SetorId);
+           // builder.HasKey(x => new { x.Id });
+            builder.HasMany<User>(u => u.Users)
+                .WithOne(s => s.Setor)
+                .HasForeignKey(s => s.SetorId);
         }
     }
 }

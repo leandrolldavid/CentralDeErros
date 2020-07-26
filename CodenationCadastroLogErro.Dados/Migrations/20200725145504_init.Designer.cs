@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodenationCadastroLogErro.Dados.Migrations
 {
     [DbContext(typeof(CodenationContext))]
-    [Migration("20200718204119_init")]
-    partial class init
+    [Migration("20200725145504_init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,23 +53,29 @@ namespace CodenationCadastroLogErro.Dados.Migrations
                         .HasColumnName("evento")
                         .HasColumnType("int");
 
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasColumnName("level")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<string>("Origim")
                         .IsRequired()
                         .HasColumnName("origim")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<int>("TipoLogId")
+                        .HasColumnName("tipoLogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnName("titulo")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
                     b.Property<int>("UserId")
                         .HasColumnName("userId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TipoLogId");
 
                     b.HasIndex("UserId");
 
@@ -93,6 +99,25 @@ namespace CodenationCadastroLogErro.Dados.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Setor");
+                });
+
+            modelBuilder.Entity("CodenationCadastroLogErro.Dominio.Moldels.TipoLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnName("level")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoLog");
                 });
 
             modelBuilder.Entity("CodenationCadastroLogErro.Dominio.Moldels.User", b =>
@@ -139,8 +164,14 @@ namespace CodenationCadastroLogErro.Dados.Migrations
 
             modelBuilder.Entity("CodenationCadastroLogErro.Dominio.Moldels.Logs", b =>
                 {
-                    b.HasOne("CodenationCadastroLogErro.Dominio.Moldels.User", "User")
+                    b.HasOne("CodenationCadastroLogErro.Dominio.Moldels.TipoLog", "TipoLog")
                         .WithMany("Logs")
+                        .HasForeignKey("TipoLogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodenationCadastroLogErro.Dominio.Moldels.User", "User")
+                        .WithMany("Log")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

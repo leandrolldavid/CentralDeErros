@@ -12,6 +12,11 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [Column("id")]
         public int Id { get; set; }
 
+        [Column("titulo")]
+        [MaxLength(500)]
+        [Required]
+        public String Titulo { get; set; }
+
         [Column("descricao")]
         [MaxLength(500)]
         [Required]
@@ -25,18 +30,17 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [Column("evento")]
         [Required]
         public int Evento { get; set; }
-
-        [Column("level")]
-        [MaxLength(100)]
+                
+        [Column("tipoLogId")]
+        [ForeignKey("TipoLog")]
         [Required]
-        //{erro Debug warning}
-        public String Level { get; set; }
-
+        public int TipoLogId { get; set; }
+        public TipoLog TipoLog { get; set; }
+         
         [Column("origim")]
         [MaxLength(100)]
         [Required]
         public String Origim { get; set; }
-
 
         [Column("arquivar")]
         public bool Arquivar { get; set; }

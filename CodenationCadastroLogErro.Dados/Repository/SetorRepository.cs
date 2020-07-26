@@ -9,6 +9,5 @@ namespace CodenationCadastroLogErro.Dados.Repository
             : base(contexto)
         {
         }
-
     }
 }
