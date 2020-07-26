@@ -1,7 +1,7 @@
 ﻿using CodenationCadastroLogErro.Dominio.Repository;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace CodenationCadastroLogErro.Dominio.Moldels
 {
@@ -31,12 +31,6 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         [Required]
         public int Evento { get; set; }
                 
-        [Column("tipoLogId")]
-        [ForeignKey("TipoLog")]
-        [Required]
-        public int TipoLogId { get; set; }
-        public TipoLog TipoLog { get; set; }
-         
         [Column("origim")]
         [MaxLength(100)]
         [Required]
@@ -55,5 +49,10 @@ namespace CodenationCadastroLogErro.Dominio.Moldels
         public int UserId { get; set; }
         public User User { get; set; }
 
+        [Column("tipoLogId")]
+        [ForeignKey("TipoLog")]
+        [Required]
+        public int TipoLogId { get; set; }
+        public TipoLog TipoLog { get; set; }
     }
 }

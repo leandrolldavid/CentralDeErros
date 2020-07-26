@@ -82,12 +82,12 @@ namespace CodenationCadastroLogErro.Dados.Repository
                         let count = _contexto.Logs.Where(x => x.Origim.Equals(log.Origim)).Count()
                         where log.Arquivar == false
                         select new LogQuery
-                        {// lista ok
+                        {
                             Id = log.Id,
                             Origim = log.Origim,
                             CreatedAt = log.CreatedAt,
                             Level = tipolog.Level,
-                            Evento = count,//log.Evento,
+                            Evento = count,
                             Descricao = log.Descricao,
                         });
             return data.OrderBy(x => x.Origim).ToList();
