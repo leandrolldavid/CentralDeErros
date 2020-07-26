@@ -31,7 +31,7 @@ Representação visual das classes da aplicação e das tabelas do banco de dado
 
 #### Banco de Dados
 
-<img src="https://github.com/leandrolldavid/CentralDeErros/assets/db.png" alt="Imagem representando as tabelas do banco de dados">
+<img src="https://github.com/leandrolldavid/CentralDeErros/assets/BD.png" alt="Imagem representando as tabelas do banco de dados">
 
 ## Desenvolvedor
 
