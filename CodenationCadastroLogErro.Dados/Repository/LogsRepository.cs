@@ -19,7 +19,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
             entity.Arquivar = true;
             _contexto.Logs.Update(entity);
             _contexto.SaveChanges();
-            return MensagensErro.Alterar;
+            return MensagensErro.Arquivar;
         }
         public List<LogQuery> SelecionarLog(int id)
         {
@@ -108,10 +108,26 @@ namespace CodenationCadastroLogErro.Dados.Repository
                             Level = tipolog.Level,
                             Evento = count,
                             Descricao = log.Descricao,
+                            Setor = setor.Nome,
                         });
             return data.ToList();
         }
     }
 }
- 
-    
+/*
+ Select
+                              Origim,
+                              created_at,
+                              t.level,
+                              u.name,
+                               (Select count(origim)
+                              from logs 
+                              where origim = log.origim) Evento,
+                              descricao
+                       from logs log
+                       join Tipolog t on log.TipoLogId = t.Id
+                       join Usuario u on log.userId = u.id
+                       where log.Arquivar = 0
+                       order by log.origim
+
+    */

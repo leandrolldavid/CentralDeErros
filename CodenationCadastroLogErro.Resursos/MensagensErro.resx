@@ -120,6 +120,9 @@
   <data name="Alterar" xml:space="preserve">
     <value>Alterado com sucesso</value>
   </data>
+  <data name="Arquivar" xml:space="preserve">
+    <value>Arquivado com sucesso</value>
+  </data>
   <data name="EmailObrigatorio" xml:space="preserve">
     <value>Informe o E-mail</value>
   </data>

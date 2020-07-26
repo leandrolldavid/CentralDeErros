@@ -70,6 +70,15 @@ namespace CodenationCadastroLogErro.Recursos {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Arquivado com sucesso.
+        /// </summary>
+        public static string Arquivar {
+            get {
+                return ResourceManager.GetString("Arquivar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Informe o E-mail.
         /// </summary>
         public static string EmailObrigatorio {

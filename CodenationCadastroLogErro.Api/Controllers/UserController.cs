@@ -32,7 +32,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
         }
         [HttpGet]
         [Authorize]
-        [Route("selecionar/{id:int}")]
+        [Route("{id:int}")]
         public ActionResult<IEnumerable<User>> SelecionarPorId(int id)
         {
             try

@@ -31,7 +31,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
            
         }
         [HttpGet]
-        [Route("selecionar/{id:int}")]
+        [Route("{id:int}")]
         public ActionResult<IEnumerable<Setor>> SelecionarPorId(int id)
         {//ok
             try
