@@ -132,3 +132,4 @@ namespace CodenationCadastroLogErro.Api.Controllers
         }
     }
 }
+
