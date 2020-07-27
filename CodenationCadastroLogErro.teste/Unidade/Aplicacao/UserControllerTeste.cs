@@ -28,15 +28,33 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
             var retorno = _controller.Cadastrar(CriarUsuario);
             //assert
             _repository.Received(1).Cadastrar(CriarUsuario);
-            retorno.Should().BeOfType<OkResult>();
+            retorno.Should().BeOfType<OkObjectResult>();
         }
 
         [Fact]
-        public void Adicionar_deve_retornar_Bad_request_quando_usuario_for_invalido()
+        public void Adicionar_deve_retornar_Bad_request_quando_Email_for_invalido()
         {
             //arrange
             var CriarUsuario = new UsuarioBuilder()
                 .SemEmail(string.Empty)
+                .ConstruirUser();
+
+            _repository.When(x => x.Cadastrar(CriarUsuario))
+                .Do(x =>
+                {
+                    throw new Exception(MensagensErro.EmailObrigatorio);
+                });
+            //act
+            var retorno = _controller.Cadastrar(CriarUsuario);
+            //assert
+            retorno.Should().BeOfType<BadRequestObjectResult>();
+        }
+        [Fact]
+        public void Adicionar_deve_retornar_Bad_request_quando_Senha_for_invalido()
+        {
+            //arrange
+            var CriarUsuario = new UsuarioBuilder()
+                .SemSenha(string.Empty)
                 .ConstruirUser();
 
             _repository.When(x => x.Cadastrar(CriarUsuario))
