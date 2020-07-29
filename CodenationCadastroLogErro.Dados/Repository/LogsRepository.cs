@@ -13,9 +13,10 @@ namespace CodenationCadastroLogErro.Dados.Repository
             : base(contexto)
         {
         }
-        public string Arquivar(LogDto user)
+
+        public string Arquivar(LogDto log)
         {
-            var entity = _contexto.Logs.FirstOrDefault(x => x.Id == user.Id);
+            var entity = _contexto.Logs.FirstOrDefault(x => x.Id == log.Id);
             entity.Arquivar = true;
             _contexto.Logs.Update(entity);
             _contexto.SaveChanges();

@@ -20,15 +20,13 @@ namespace CodenationCadastroLogErro.Dados.Repository
             _validador = new ValidadorUsuario();
         }
 
-        public string Cadastrar(User user)
+        public override string Cadastrar(User user)
         {
             var validarResultado = _validador.Validate(user);
             if (!validarResultado.IsValid.Equals(true)) throw new Exception(validarResultado.ToString());
             if (!EmailEstaEmUso(user.Email).Equals(false)) throw new Exception(MensagensErro.verificarEmail);
             user.Role = "user";
-            _contexto.Users.Add(user);
-            _contexto.SaveChanges();
-            return string.Format("Usuario '{0} {1}'", user.Username, MensagensErro.Ok); 
+            return base.Cadastrar(user); ; 
         }
         public string Login(UserDto user)
         {

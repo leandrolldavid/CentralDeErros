@@ -14,7 +14,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
            
         }
 
-        public string Incluir(T entity)
+        public virtual string Cadastrar(T entity)
         {
             _contexto.Set<T>().Add(entity);
             _contexto.SaveChanges();
@@ -26,7 +26,7 @@ namespace CodenationCadastroLogErro.Dados.Repository
             _contexto.SaveChanges();
             return MensagensErro.Alterar;
         }
-        public virtual T SelecionarPorId(int id)
+        public T SelecionarPorId(int id)
         {
             return _contexto.Set<T>().FirstOrDefault(x => x.Id == id);
         }

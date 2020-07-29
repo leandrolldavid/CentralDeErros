@@ -7,6 +7,5 @@ namespace CodenationCadastroLogErro.Dominio.Repository
     {
         string Login(UserDto User);
         string InserirRole(UserRoleDto user);
-        string Cadastrar(User user);
     }
 }

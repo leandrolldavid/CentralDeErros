@@ -22,7 +22,7 @@ namespace CodenationCadastroLogErro.Api.Controllers
         {
             try
             {
-                return Ok(_repository.Incluir(logs));
+                return Ok(_repository.Cadastrar(logs));
             }
             catch (Exception ex)
             {
