@@ -16,6 +16,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace CodenationCadastroLogErro.Api
 {
@@ -30,12 +31,13 @@ namespace CodenationCadastroLogErro.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();// parar o fluxo de referencia ciclicar do Json =>
-                                      //.AddNewtonsoftJson(Options => Options.SerializerSettings.ReferenceLoopHandling = 
-                                      //  Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            // parar o fluxo de referencia ciclicar do Json instalar o pakote NewtonsofJson=>
+            services.AddControllers()
+          .AddNewtonsoftJson(Options => Options.SerializerSettings.ReferenceLoopHandling =
+                                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddMvc()
             .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
-            services.AddMvc().AddJsonOptions(opcoes => 
+            services.AddMvc().AddJsonOptions(opcoes =>
             { // ignore valores nulos
                 opcoes.JsonSerializerOptions.IgnoreNullValues = true;
             });
@@ -48,7 +50,7 @@ namespace CodenationCadastroLogErro.Api
             services.AddScoped<ISetorRepository, SetorRepository>();
             services.AddScoped<ITipoLogRepository, TipoLogRepository>();
             services.AddScoped<IGerarToken, GerarToken>();
-        
+
             var section = Configuration.GetSection("token");
             services.Configure<Token>(section);
 
@@ -82,11 +84,44 @@ namespace CodenationCadastroLogErro.Api
             });
             services.AddMvcCore().AddAuthorization(opt =>
             {
-                opt.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
-                opt.AddPolicy("user", policy => policy.RequireClaim(ClaimTypes.Role,"user"));
+                opt.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
+                opt.AddPolicy("user", policy => policy.RequireClaim(ClaimTypes.Role, "user"));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            
+
             services.AddDbContext<CodenationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CentralDeErros")));
+
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc(name: "v1", new OpenApiInfo
+                {
+                    Title = "Central de Erros",
+                    Version = "v1"
+                });
+                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+
+                });
+                x.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+            });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -95,22 +130,28 @@ namespace CodenationCadastroLogErro.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseHttpsRedirection(); //forçar a usar o https
-              app.UseRouting();
-            
-              app.UseAuthentication();
-              app.UseAuthorization();
-              app.UseEndpoints(endpoints =>
-              {
-                  endpoints.MapControllers();
-              });
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Api Central de Erros");
+            });
+            app.UseHttpsRedirection(); //forçar a usar o https
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.UseCors(config =>
             {
                 config.AllowAnyHeader();
                 config.AllowAnyMethod();
                 config.AllowAnyOrigin();
-            } );
-          //    app.UseMvc();
+            });
+            //    app.UseMvc();
         }
     }
 }
