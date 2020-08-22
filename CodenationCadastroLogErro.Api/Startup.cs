@@ -1,22 +1,22 @@
-using CodenationCadastroLogErro.Dados;
-using CodenationCadastroLogErro.Dados.Repository;
-using CodenationCadastroLogErro.Dominio.Moldels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CodenationCadastroLogErro.Dominio.Repository;
 using CodenationCadastroLogErro.Servico.Servicos;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using CodenationCadastroLogErro.Dados.Repository;
+using CodenationCadastroLogErro.Dominio.Moldels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using CodenationCadastroLogErro.Dados;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FluentValidation.AspNetCore;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.OpenApi.Models;
 
 namespace CodenationCadastroLogErro.Api
 {

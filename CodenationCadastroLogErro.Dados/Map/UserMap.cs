@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CodenationCadastroLogErro.Dominio.Moldels;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodenationCadastroLogErro.Dados.Map
 {

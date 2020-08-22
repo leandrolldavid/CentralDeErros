@@ -1,7 +1,7 @@
-﻿using CodenationCadastroLogErro.Dominio.Dtos;
-using CodenationCadastroLogErro.Dominio.Moldels;
+﻿using CodenationCadastroLogErro.Dominio.Repository;
 using CodenationCadastroLogErro.Servico.Validador;
-using CodenationCadastroLogErro.Dominio.Repository;
+using CodenationCadastroLogErro.Dominio.Moldels;
+using CodenationCadastroLogErro.Dominio.Dtos;
 using CodenationCadastroLogErro.Recursos;
 using System.Linq;
 using System;

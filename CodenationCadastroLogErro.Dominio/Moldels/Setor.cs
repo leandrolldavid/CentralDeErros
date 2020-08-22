@@ -1,8 +1,8 @@
 ﻿using CodenationCadastroLogErro.Dominio.Repository;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System;
 
 namespace CodenationCadastroLogErro.Dominio.Moldels
 {

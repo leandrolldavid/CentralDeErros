@@ -1,7 +1,6 @@
 ﻿using CodenationCadastroLogErro.Dominio.Repository;
 using CodenationCadastroLogErro.Servico.Validador;
 using CodenationCadastroLogErro.Dominio.Moldels;
-using CodenationCadastroLogErro.Recursos;
 using System;
 
 namespace CodenationCadastroLogErro.Dados.Repository

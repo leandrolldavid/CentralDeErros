@@ -20,7 +20,7 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
             _controller = new UserController(_repository);
         }
         [Fact]
-        public void Adicionar_deve_salvar_usuario()
+        public void Cadastrar_deve_salvar_usuario()
         {
             //arrange
             var CriarUsuario = new UsuarioBuilder().ConstruirUser();
@@ -32,7 +32,7 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
         }
 
         [Fact]
-        public void Adicionar_deve_retornar_Bad_request_quando_Email_for_invalido()
+        public void Cadastrar_deve_retornar_Bad_request_quando_Email_for_invalido()
         {
             //arrange
             var CriarUsuario = new UsuarioBuilder()
@@ -50,7 +50,7 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
             retorno.Should().BeOfType<BadRequestObjectResult>();
         }
         [Fact]
-        public void Adicionar_deve_retornar_Bad_request_quando_Senha_for_invalido()
+        public void Cadastrar_deve_retornar_Bad_request_quando_Senha_for_invalido()
         {
             //arrange
             var CriarUsuario = new UsuarioBuilder()
@@ -60,12 +60,61 @@ namespace CodenationCadastroLogErro.teste.Unidade.Aplicacao
             _repository.When(x => x.Cadastrar(CriarUsuario))
                 .Do(x =>
                 {
-                    throw new Exception(MensagensErro.EmailObrigatorio);
+                    throw new Exception(MensagensErro.senha);
                 });
             //act
             var retorno = _controller.Cadastrar(CriarUsuario);
             //assert
             retorno.Should().BeOfType<BadRequestObjectResult>();
         }
+
+        [Fact]
+        public void Login_deve_permitir_Acesso_ao_usuario()
+        {
+            //arrange
+            var LoginUsuarioDto = new UsuarioBuilder().ConstruirUserDto();
+            //act
+            var retorno = _controller.Login(LoginUsuarioDto);
+            //assert
+            _repository.Received(1).Login(LoginUsuarioDto);
+            retorno.Should().BeOfType<OkObjectResult>();
+
+        }
+        [Fact]
+        public void Login_deve_retornar_Bad_request_quando_Senha_for_invalido()
+        {
+            //arrange
+            var LoginUsuarioDto = new UsuarioBuilder().SemSenha(string.Empty).ConstruirUserDto();
+            _repository.When(x => x.Login(LoginUsuarioDto))
+                .Do(x =>
+                {
+                    throw new Exception(MensagensErro.senha);
+                });
+            //act
+            var retorno = _controller.Login(LoginUsuarioDto);
+            //assert
+            _repository.Received(1).Login(LoginUsuarioDto);
+            retorno.Should().BeOfType<BadRequestObjectResult>();
+
+        }
+       [Fact]
+        public void Login_deve_retornar_Bad_request_quando_email_for_invalido()
+        {
+            //arrange
+            var LoginUsuarioDto = new UsuarioBuilder().SemEmail(string.Empty).ConstruirUserDto();
+            _repository.When(x => x.Login(LoginUsuarioDto))
+                .Do(x =>
+                {
+                    throw new Exception(MensagensErro.EmailObrigatorio);
+                });
+            //act
+            var retorno = _controller.Login(LoginUsuarioDto);
+            //assert
+            _repository.Received(1).Login(LoginUsuarioDto);
+            retorno.Should().BeOfType<BadRequestObjectResult>();
+
+        }
+
     }
+
 }

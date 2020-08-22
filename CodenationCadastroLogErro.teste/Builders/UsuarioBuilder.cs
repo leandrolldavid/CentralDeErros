@@ -1,4 +1,5 @@
-﻿using CodenationCadastroLogErro.Dominio.Moldels;
+﻿using CodenationCadastroLogErro.Dominio.Dtos;
+using CodenationCadastroLogErro.Dominio.Moldels;
 using System;
 
 namespace CodenationCadastroLogErro.Teste.Builders
@@ -34,6 +35,13 @@ namespace CodenationCadastroLogErro.Teste.Builders
                 Email = _Email,
             };
         }
-       
+        public UserDto ConstruirUserDto()
+        {
+            return new UserDto()
+            {   
+                Password = _Password,
+                Email = _Email,
+            };
+        }
     }
 }

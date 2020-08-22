@@ -1,11 +1,11 @@
-﻿using CodenationCadastroLogErro.Dominio.Moldels;
-using System;
-using Microsoft.IdentityModel.Tokens;
+﻿using CodenationCadastroLogErro.Dominio.Repository;
+using CodenationCadastroLogErro.Dominio.Moldels;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
-using CodenationCadastroLogErro.Dominio.Repository;
+using System.Text;
+using System;
 
 namespace CodenationCadastroLogErro.Servico.Servicos
 {
