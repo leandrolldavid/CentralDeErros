@@ -1,0 +1,45 @@
+# vai no repositorio de containers da MS e baixa a imagem do aspnet dondo o nome de base
+FROM mcs.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+
+#Cria uma pasta chamada app dentro da "imagem"
+WORKDIR /app
+
+#expõe a porta 80 do congtainar (http)
+EXPOSE 80
+
+#expõe a porta 443 do congtainar (https)
+EXPOSE 442
+
+#vai no repositorio de container da MS e baixa a imagem do donet core dando o nome de build
+#isso é feito para complilar a versão da aplicação aspecificamente para o SO setado no docker
+#(caso seja linux, é equivalente a aldo como dotnet build --runtime ubuntu.xxxx)e não da forma hibrida
+FROM mcs.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+
+#Cria uma pasta chamada src dentro da "imagem"
+WORKDIR /src
+
+#copia para a pasta src o conteudo da pasta onde se oncontra o dockerFile. Nesse caso, ele copia
+#todo o código fonte da nossa aplicação
+COPY ../
+
+#com todo código fonte copiado para a pasta src, é executado o comando de restore da solution
+					#nome da aplicação
+RUN dotnet restore "WebApplicaion1.sln" 
+
+#utilizar novamente o sdk do .netcore, mas dessa vez com o nome da publish
+FROM build AS publish
+
+#executar a publicação da aplicação na pasta app/publish
+RUN dotnet publish "WebApplicaion1\\WebApplicaion1.csproj" -c Release -o /app/publish --no-restore
+
+#utiliza novamente o aspnetcore, mas dessa vez com o nome de final
+FROM base AS final
+
+#vai para a pasta app
+WORKDIR /app
+
+#copia tudo	que está na pasta publish/app para a pasta corrente da imagem /app
+COPY --from=publish /app/publish .
+
+# execute a aplicação 
+ENTRYPOINT["dotnet","WebApplicaion1.dll"]

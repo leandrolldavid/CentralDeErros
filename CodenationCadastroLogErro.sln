@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodenationCadastroLogErro.teste", "CodenationCadastroLogErro.teste\CodenationCadastroLogErro.teste.csproj", "{AA6F4C68-62F8-425F-A108-57D7EE9F64E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{B4801FE6-DEE2-41A5-8AA3-82AE3E4B3EA3}"
+	ProjectSection(SolutionItems) = preProject
+		DockerFile = DockerFile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
