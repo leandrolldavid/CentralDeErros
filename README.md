@@ -27,11 +27,11 @@ Representação visual das classes da aplicação e das tabelas do banco de dado
 
 #### Classe
 
-<img src="https://github.com/leandrolldavid/CentralDeErros/blob/fe91849b52bea58eae677a5a13affa9f89e6784a/assets/DiagramaDeClasseRefeito.png" alt="Imagem representando as classes da aplicação">
+<img src="https://github.com/leandrolldavid/CentralDeErros/blob/master/assets/DiagramaDeClasseRefeito.png" alt="Imagem representando as classes da aplicação">
 
 #### Banco de Dados
 
-<img src="https://github.com/leandrolldavid/CentralDeErros/blob/fe91849b52bea58eae677a5a13affa9f89e6784a/assets/BD.png" alt="Imagem representando as tabelas do banco de dados">
+<img src="https://github.com/leandrolldavid/CentralDeErros/blob/master/assets/BD.png" alt="Imagem representando as tabelas do banco de dados">
 
 ## Desenvolvedor
 
